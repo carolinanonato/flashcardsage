@@ -17,11 +17,17 @@ app.use(
     })
 );
 
+//fetch the database from mongoose
 app.get('/decks', async (req: Request, res: Response) => {
     const decks = await Deck.find();
     res.json(decks);
 });
 
+app.delete('/decks/:deckId', async (req: Request, res: Response) => {
+    const deckId = req.params.deckId;
+    const deck = await Deck.findByIdAndDelete(deckId);
+    res.json(deck);
+});
 
 app.post('/decks', async (req: Request, res: Response) => {
     const newDeck = new Deck({
