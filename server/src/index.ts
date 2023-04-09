@@ -3,13 +3,21 @@ import mongoose from 'mongoose';
 
 import Deck from './models/Deck';
 import { config } from 'dotenv';
+import cors from "cors";
+
 config();
 
 const PORT = 5000;
 
 const app = express()
+
 //suport for json post request
 app.use(express.json())
+app.use(
+    cors({
+        origin: "*",
+    })
+);
 
 
 app.post('/decks', async (req: Request, res: Response) => {
