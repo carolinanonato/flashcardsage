@@ -1,10 +1,8 @@
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
-
+import cors from "cors";
 import Deck from './models/Deck';
 import { config } from 'dotenv';
-import cors from "cors";
-
 config();
 
 const PORT = 5000;
@@ -18,6 +16,11 @@ app.use(
         origin: "*",
     })
 );
+
+app.get('/decks', async (req: Request, res: Response) => {
+    const decks = await Deck.find();
+    res.json(decks);
+});
 
 
 app.post('/decks', async (req: Request, res: Response) => {
