@@ -3,9 +3,14 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+type TDeck = {
+  _id: string;
+  title: string;  
+}
+
 function App() {
 const [title, setTitle] = useState('')
-const [decks, setDecks] = useState([])
+const [decks, setDecks] = useState<TDeck[]>([])
 
 async function handleCreateDeck(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
