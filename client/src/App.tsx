@@ -10,7 +10,12 @@ function handleCreateDeck(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
    fetch('http://localhost:5000/decks', {
     method: 'POST',
-    body: JSON.stringify({ title }),
+    body: JSON.stringify({ 
+      title,
+     }),
+    headers: {
+      "Content-Type": "application/json"
+    }
    })
 }
 
