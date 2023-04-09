@@ -8,7 +8,7 @@ const [title, setTitle] = useState('')
 
 function handleCreateDeck(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-   fetch('http:/localhost:5000/decks', {
+   fetch('http://localhost:5000/decks', {
     method: 'POST',
     body: JSON.stringify({ title }),
    })
