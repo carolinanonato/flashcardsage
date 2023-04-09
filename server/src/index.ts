@@ -1,20 +1,21 @@
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 
-import DeckModel from './models/Deck';
+import Deck from './models/Deck';
 
 const PORT = 5000;
 
 const app = express()
+//suport for json post request
+app.use(express.json())
 
 
-
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World!')
-});
-
-app.get('/hello', (req: Request, res: Response) => {
-    res.send('GG')
+app.post('/decks', async (req: Request, res: Response) => {
+    const newDeck = new Deck({
+        title: req.body.title,
+    });
+    const createdDeck = await newDeck.save();
+    res.json(createdDeck);
 });
 
 mongoose.connect('mongodb+srv://flashcard:CzCDImDWnjZhMlhn@mycluster.tdlwnkt.mongodb.net/?retryWrites=true&w=majority').then(() => {
