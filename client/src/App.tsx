@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Link } from "react-router-dom";
 
 type TDeck = {
   _id: string;
@@ -51,7 +50,8 @@ useEffect(() => {
         decks.map((deck) => (
           <li key={deck._id}>
             <button onClick={() => handleDeleteDeck(deck._id)}>X</button>
-            {deck.title}
+           
+            <Link to={`decks/${deck._id}`}> {deck.title}</Link>
             </li>
 
        ) )}
