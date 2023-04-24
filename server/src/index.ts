@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import cors from "cors";
 import Deck from './models/Deck';
 import { config } from 'dotenv';
+import { getDecksController } from './controllers/getDecksController';
+import { createDeckController } from './controllers/createDeckController';
+import { deleteDeckController } from './controllers/deleteDeckController';
 config();
 
 const PORT = 5000;
@@ -18,25 +21,11 @@ app.use(
 );
 
 //fetch the database from mongoose
-app.get('/decks', async (req: Request, res: Response) => {
-    const decks = await Deck.find();
-    res.json(decks);
-});
+app.get('/decks', getDecksController);
+app.post('/decks', createDeckController);
+app.delete('/decks/:deckId', deleteDeckController);
 
-app.delete('/decks/:deckId', async (req: Request, res: Response) => {
-    const deckId = req.params.deckId;
-    const deck = await Deck.findByIdAndDelete(deckId);
-    res.json(deck);
-});
-
-app.post('/decks', async (req: Request, res: Response) => {
-    const newDeck = new Deck({
-        title: req.body.title,
-    });
-    const createdDeck = await newDeck.save();
-    res.json(createdDeck);
-});
-
+//connect to the database
 mongoose.connect(process.env.MONGO_URL!).then(() => {
     console.log(`Listening on port ${PORT}`);
     app.listen(PORT);
