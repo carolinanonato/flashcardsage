@@ -1,11 +1,11 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import mongoose from 'mongoose';
 import cors from "cors";
-import Deck from './models/Deck';
 import { config } from 'dotenv';
 import { getDecksController } from './controllers/getDecksController';
 import { createDeckController } from './controllers/createDeckController';
 import { deleteDeckController } from './controllers/deleteDeckController';
+import { createCardForDeckController } from './controllers/createCardForDeckController';
 config();
 
 const PORT = 5000;
@@ -24,6 +24,7 @@ app.use(
 app.get('/decks', getDecksController);
 app.post('/decks', createDeckController);
 app.delete('/decks/:deckId', deleteDeckController);
+app.post("/decks/:deckId/cards", createCardForDeckController);
 
 //connect to the database
 mongoose.connect(process.env.MONGO_URL!).then(() => {
