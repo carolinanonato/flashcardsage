@@ -2,14 +2,16 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { Link } from "react-router-dom";
 import { deleteDeck } from './api/deleteDeck';
-import { getDecks } from './api/getDecks';
+import { TDeck, getDecks } from './api/getDecks';
 import { createDeck } from './api/createDeck';
 import { createCard } from './api/createCard';
 import { Routes, Route, useParams } from 'react-router-dom';
+import { getDeck } from './api/getDeck';
 
 
 
 export default function Deck() {
+    const [deck, setDeck] = useState<TDeck | undefined>()
     const [cards, setCards] = useState<string[]>([])
     const [text, setText] = useState('')
     const { deckId } = useParams();
@@ -26,13 +28,15 @@ export default function Deck() {
     //    setDecks(decks.filter((deck) => deck._id !== deckId))
     // }
     
-    // useEffect(() => {
-    //   async function fetchDecks() {   
-    //    const newDecks = await getDecks()
-    //    setDecks(newDecks)
-    //   }
-    //   fetchDecks();
-    // }, []);
+    useEffect(() => {
+      async function fetchDeck() {  
+        if (!deckId) return;
+       const newDeck = await getDeck(deckId)
+       setDeck(newDeck)
+       setCards(newDeck.cards)
+      }
+      fetchDeck();
+    }, [deckId]);
     
       return (
         <div className="App">

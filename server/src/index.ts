@@ -24,6 +24,7 @@ app.use(
 app.get('/decks', getDecksController);
 app.post('/decks', createDeckController);
 app.delete('/decks/:deckId', deleteDeckController);
+app.get('/decks/:deckId', getDecksController);
 app.post("/decks/:deckId/cards", createCardForDeckController);
 
 //connect to the database
